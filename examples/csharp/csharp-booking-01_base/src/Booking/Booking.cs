@@ -2,52 +2,35 @@
 
 namespace CodelyTv.Booking
 {
-    public class BookingDetails
-{
-    public BookingId Id { get; }
-    public DateTime StartDate { get; }
-    public DateTime EndDate { get; }
-    public CustomerId CustomerId { get; }
-    public CustomerName CustomerName { get; }
-    public EmailAddress CustomerEmail { get; }
-    public BookingType BookingType { get; }
-    public DiscountType DiscountType { get; }
-    public DiscountValue DiscountValue { get; }
-    public TaxType TaxType { get; }
-    public TaxValue TaxValue { get; }
-
-    public BookingDetails(
-        BookingId id, DateTime startDate, DateTime endDate, CustomerId customerId,
-        CustomerName customerName, EmailAddress customerEmail, BookingType bookingType,
-        DiscountType discountType, DiscountValue discountValue, TaxType taxType, TaxValue taxValue)
+    public class BookingPricing
     {
-        Id = id;
-        StartDate = startDate;
-        EndDate = endDate;
-        CustomerId = customerId;
-        CustomerName = customerName;
-        CustomerEmail = customerEmail;
-        BookingType = bookingType;
-        DiscountType = discountType;
-        DiscountValue = discountValue;
-        TaxType = taxType;
-        TaxValue = taxValue;
-    }
+        public DiscountType DiscountType { get; }
+        public DiscountValue DiscountValue { get; }
+        public TaxType TaxType { get; }
+        public TaxValue TaxValue { get; }
 
-    public Booking(BookingDetails details)
-    {
-        this.id = details.Id;
-        this.startDate = details.StartDate;
-        this.endDate = details.EndDate;
-        this.customerId = details.CustomerId;
-        this.customerName = details.CustomerName;
-        this.customerEmail = details.CustomerEmail;
-        this.bookingType = details.BookingType;
-        this.discountType = details.DiscountType;
-        this.discountValue = details.DiscountValue;
-        this.taxType = details.TaxType;
-        this.taxValue = details.TaxValue;
-    }
+        public BookingPricing(DiscountType discountType, DiscountValue discountValue, TaxType taxType, TaxValue taxValue)
+        {
+            DiscountType = discountType;
+            DiscountValue = discountValue;
+            TaxType = taxType;
+            TaxValue = taxValue;
+        }
+
+        private readonly BookingPricing pricing;
+
+        public Booking(BookingId id, DateTime startDate, DateTime endDate, CustomerId customerId,
+            CustomerName customerName, EmailAddress customerEmail, BookingType bookingType, BookingPricing pricing)
+        {
+            this.id = id;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.customerId = customerId;
+            this.customerName = customerName;
+            this.customerEmail = customerEmail;
+            this.bookingType = bookingType;
+            this.pricing = pricing;
+        }
 
         public BookingStatus StatusFor(DateTime date)
         {
