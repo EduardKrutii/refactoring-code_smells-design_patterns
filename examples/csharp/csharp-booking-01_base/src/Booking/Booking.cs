@@ -34,16 +34,8 @@ namespace CodelyTv.Booking
 
         public BookingStatus StatusFor(DateTime date)
         {
-            if (date < startDate)
-            {
-                return BookingStatus.NOT_STARTED;
-            }
-
-            if (date > startDate && date < endDate)
-            {
-                return BookingStatus.ACTIVE;
-            }
-
+            if (date < startDate) return BookingStatus.NOT_STARTED;
+            if (date >= startDate && date <= endDate) return BookingStatus.ACTIVE;
             return BookingStatus.FINISHED;
         }
     }
